@@ -1,12 +1,4 @@
-/**********************************
- * Nama :Edwin Christopher Laban
- * NIM  :18/431056/TK/47649
- **********************************/
-
 #include "KeyPad.h"
-
-String hex; // Store the hex values
-String text; // Store the decoded text
 
 const byte ROWS = 4; // rows
 const byte COLS = 4; //number of columns
@@ -51,23 +43,23 @@ void setup() {
     pinMode(colPins[i], INPUT_PULLUP);
   }
   Serial.begin(9600);
-  Serial.println("Inisialisasi");
+  Serial.println("Initialization");
   delay(500);
-  Serial.println("Masukkan string maksimal 16 karakter.");
-  Serial.println("Tekan * atau # untuk return nilai string");
+  Serial.println("Input string with 16 characters maximum");
+  Serial.println("Push * or # to show the result");
 }
 
 void loop() {
   char myString[16];
-  bacaString(myString);
+  ReadString(myString);
   if (strlen(myString) > 16) {
     Serial.println("");
-    Serial.println("Melebihi 16 karakter");
+    Serial.println("More than 16 characters");
     Serial.println("");
   }
   else {
     Serial.println("");
-    Serial.print("Hasil : ");
+    Serial.print("Result: ");
     Serial.write(myString) ;
     Serial.println("");
     Serial.println("");
