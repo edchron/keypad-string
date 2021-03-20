@@ -1,7 +1,7 @@
 #include "KeyPad.h"
 
 /***************************************************************
-Konstruktor dengan beberapa overriding
+Constructor with overriding
 ****************************************************************/
 KeyPad::KeyPad(char *_keys,byte _ROWS,byte _COLS,byte *_rowPins,byte *_colPins){
 	begin(_keys);
@@ -12,22 +12,22 @@ KeyPad::KeyPad(char *_keys,byte _ROWS,byte _COLS,byte *_rowPins,byte *_colPins){
 }
 
 /***************************************************************
-Deklarasi Pin dan Inisialisasi variabel keys
+Keys Initialization
 ****************************************************************/
 void KeyPad::begin(char *_keys){
 	keys = _keys;	
 }
 
 /****************************************************************
-Polling kolom keypad
+Polling keypad Column
 return:
-0:kolom 0 aktif
-1:kolom 1 aktif
-2:kolom 2 aktif
-3:kolom 3 aktif(untuk keypad 4X4)
-4:tidak ada kolom yg aktif
+0: Column 0 active
+1: Column 1 active
+2: Column 2 active
+3: Column 3 active (for 4x4 keypad)
+4: No active column
 ****************************************************************/
-unsigned char KeyPad::cek_kolom(){
+unsigned char KeyPad::check_column(){
 	if (digitalRead(colPins[0])==LOW){
 		delay(10);
 		if(digitalRead(colPins[0])==LOW){
@@ -65,11 +65,11 @@ unsigned char KeyPad::cek_kolom(){
 
 
 /****************************************************************
-Aktivasi baris,sekaligus cek kolom, menghasilkan kombinasi baris-kolom
+Activating rows and check columns,resulting column-row
 params:
-row_th :baris yg akan diaktifkan
+row_th : activated row
 return:
-kolom yg aktif dalam baris yg diaktifkan
+active column in activated row
 ****************************************************************/
 unsigned char KeyPad::activate_row(unsigned char row_th){
 	unsigned char out_clm;
@@ -79,15 +79,15 @@ unsigned char KeyPad::activate_row(unsigned char row_th){
 		digitalWrite(rowPins[i], HIGH);
 	}
 	digitalWrite(rowPins[row_th],LOW);
-	out_clm=cek_kolom();
+	out_clm=check_column();
 	return out_clm;
 }
 
 
 /****************************************************************
-Membaca data dari keypad, langsung menghasilkan tombol yg dipencet
+Reads data from keypad, resulting buttons that has been pushed
 return:
-karakter keypad yg dipencet ('#','*','0',...,'9')
+Keypad charactes ('#','*','0',...,'9')
 ****************************************************************/
 unsigned char KeyPad::ReadKeypad(){
 	unsigned char tmp, get_dt_loop,conter_tmb;
