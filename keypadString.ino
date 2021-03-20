@@ -1,6 +1,6 @@
 #include "KeyPad.h"
 
-const byte ROWS = 4; // rows
+const byte ROWS = 4; // number of rows
 const byte COLS = 4; //number of columns
 char keys[ROWS][COLS] = {
   {'1', '2', '3', 'A'},
@@ -11,7 +11,7 @@ char keys[ROWS][COLS] = {
 byte rowPins[ROWS] = {4, 5, 6, 7};
 byte colPins[COLS] = {8, 9, 10, 11};
 
-KeyPad kp = KeyPad(buatKeymap(keys), ROWS, COLS, rowPins, colPins);
+KeyPad kp = KeyPad(MakeKeymap(keys), ROWS, COLS, rowPins, colPins);
 //KeyPad kp = KeyPad();
 
 uint8_t bacaString(char *MyStr) {
